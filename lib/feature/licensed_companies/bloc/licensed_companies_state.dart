@@ -1,35 +1,46 @@
 import 'package:equatable/equatable.dart';
 import 'package:painel_mentor/entities/licenced_company.dart';
 
-abstract class LicensedComapniesState extends Equatable {}
+abstract class LicensedCompaniesState extends Equatable {}
 
-class LicensedComapniesInital extends LicensedComapniesState {
+class LicensedCompaniesInital extends LicensedCompaniesState {
   @override
   List<Object?> get props => [];
 }
 
-class LicensedComapniesLoading extends LicensedComapniesState {
+class LicensedCompaniesLoading extends LicensedCompaniesState {
   @override
   List<Object?> get props => [];
 }
 
-class LicensedComapniesError extends LicensedComapniesState {
+class LicensedCompaniesError extends LicensedCompaniesState {
+  final String error;
+
+  LicensedCompaniesError(this.error);
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [error];
 }
 
-class LicensedComapniesLoaded extends LicensedComapniesState {
+class LicensedCompaniesLoaded extends LicensedCompaniesState {
   final List<LicensedCompany> companies;
 
-  LicensedComapniesLoaded(this.companies);
+  LicensedCompaniesLoaded(this.companies);
   @override
   List<Object?> get props => [companies];
 }
 
-class LicensedComapniesUpdated extends LicensedComapniesState {
+class LicensedCompaniesUpdated extends LicensedCompaniesState {
   final LicensedCompany company;
 
-  LicensedComapniesUpdated(this.company);
+  LicensedCompaniesUpdated(this.company);
+  @override
+  List<Object?> get props => [company];
+}
+
+class LicensedCompaniesCreated extends LicensedCompaniesState {
+  final LicensedCompany company;
+
+  LicensedCompaniesCreated(this.company);
   @override
   List<Object?> get props => [company];
 }
