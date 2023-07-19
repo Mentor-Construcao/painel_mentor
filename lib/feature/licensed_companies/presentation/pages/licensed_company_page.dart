@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:painel_mentor/entities/licenced_company.dart';
-import 'package:painel_mentor/feature/licensed_companies/bloc/licensed_companies_bloc.dart';
-import 'package:painel_mentor/feature/licensed_companies/bloc/licensed_companies_event.dart';
+import 'package:painel_mentor/feature/licensed_companies/presentation/bloc/licensed_companies_bloc.dart';
+import 'package:painel_mentor/feature/licensed_companies/presentation/bloc/licensed_companies_event.dart';
 import 'package:uuid/uuid.dart';
 
 class LicensedCompanyPage extends StatelessWidget {

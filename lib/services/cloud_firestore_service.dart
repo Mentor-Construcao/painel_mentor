@@ -15,8 +15,8 @@ class CloudFirestoreService {
         );
   }
 
-  Future<List> getCollection(String collectionPath) async {
-    return await licensedCompaniesCollection.get().then((value) => value.docs);
+  Future<List> getCollection() async {
+    return (await licensedCompaniesCollection.get()).docs;
   }
 
   Future<void> setCompany(LicensedCompany company) async {

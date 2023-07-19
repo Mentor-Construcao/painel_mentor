@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:painel_mentor/feature/licensed_companies/bloc/licensed_companies_bloc.dart';
-import 'package:painel_mentor/feature/licensed_companies/bloc/licensed_companies_state.dart';
+import 'package:painel_mentor/feature/licensed_companies/presentation/bloc/licensed_companies_bloc.dart';
+import 'package:painel_mentor/feature/licensed_companies/presentation/bloc/licensed_companies_state.dart';
 
 class LicensedCompaniesPage extends StatefulWidget {
   const LicensedCompaniesPage({super.key});
