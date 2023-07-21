@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "137948269951",
+    "project_id": "mentor-construcao",
+    "storage_bucket": "mentor-construcao.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:137948269951:android:3927955df0c68a213d1e4a",
+        "android_client_info": {
+          "package_name": "br.com.planeje.app.flutter.mentor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "137948269951-p9j20uc3b1h6shua3ts28c9iat4i0j08.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJzlHldlwzBFML1Vm3IxANUDduyc31wbs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "137948269951-p9j20uc3b1h6shua3ts28c9iat4i0j08.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "137948269951-5fqa3fme3jvurbbmfl1kvmoqsp7ivu15.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "br.com.planeje.app.flutter.mentorApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:137948269951:android:1287a442365500b23d1e4a",
+        "android_client_info": {
+          "package_name": "com.example.painel_mentor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "137948269951-p9j20uc3b1h6shua3ts28c9iat4i0j08.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJzlHldlwzBFML1Vm3IxANUDduyc31wbs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "137948269951-p9j20uc3b1h6shua3ts28c9iat4i0j08.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "137948269951-5fqa3fme3jvurbbmfl1kvmoqsp7ivu15.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "br.com.planeje.app.flutter.mentorApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

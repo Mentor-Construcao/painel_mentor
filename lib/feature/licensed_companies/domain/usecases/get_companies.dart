@@ -1,9 +1,19 @@
+import 'package:painel_mentor/entities/licenced_company.dart';
 import 'package:painel_mentor/services/cloud_firestore_service.dart';
 
 class GetCompanies {
-  final firestore = CloudFirestoreService();
+  final CloudFirestoreService firestore;
 
-  Future<List> call() async {
-    return await firestore.getCollection();
+  GetCompanies(this.firestore);
+
+  Future<List<LicensedCompany>?> call() async {
+    var query = await firestore.getCollection();
+    final companies = <LicensedCompany>[];
+    for (var doc in query.docs) {
+      companies.add(doc.data() as LicensedCompany);
+    }
+    return companies;
+
+    // return query;
   }
 }

@@ -1,46 +1,93 @@
 import 'package:equatable/equatable.dart';
 import 'package:painel_mentor/entities/licenced_company.dart';
 
-abstract class LicensedCompaniesState extends Equatable {}
+abstract class LicensedCompaniesState extends Equatable {
+  final List<LicensedCompany>? companies;
+  const LicensedCompaniesState({this.companies});
+  LicensedCompaniesState.fromLastState(
+    LicensedCompaniesState lastState, {
+    List<LicensedCompany>? companies,
+  }) : companies = companies ?? lastState.companies;
+}
 
 class LicensedCompaniesInital extends LicensedCompaniesState {
+  LicensedCompaniesInital() : super(companies: []);
+
   @override
   List<Object?> get props => [];
 }
 
 class LicensedCompaniesLoading extends LicensedCompaniesState {
+  LicensedCompaniesLoading.fromLastState(super.lastState)
+      : super.fromLastState();
+
   @override
   List<Object?> get props => [];
 }
 
 class LicensedCompaniesError extends LicensedCompaniesState {
-  final String error;
-
-  LicensedCompaniesError(this.error);
+  LicensedCompaniesError.fromLastState(super.lastState) : super.fromLastState();
   @override
-  List<Object?> get props => [error];
+  List<Object?> get props => [];
 }
 
 class LicensedCompaniesLoaded extends LicensedCompaniesState {
-  final List<LicensedCompany> companies;
-
-  LicensedCompaniesLoaded(this.companies);
+  LicensedCompaniesLoaded.fromLastState(
+    super.lastState,
+    List<LicensedCompany> companies,
+  ) : super.fromLastState(
+          companies: companies,
+        );
   @override
   List<Object?> get props => [companies];
 }
 
-class LicensedCompaniesUpdated extends LicensedCompaniesState {
-  final LicensedCompany company;
+class LicensedCompaniesUpdatedInProgress extends LicensedCompaniesState {
+  LicensedCompaniesUpdatedInProgress.fromLastState(super.lastState)
+      : super.fromLastState();
 
-  LicensedCompaniesUpdated(this.company);
   @override
-  List<Object?> get props => [company];
+  List<Object?> get props => [];
 }
 
-class LicensedCompaniesCreated extends LicensedCompaniesState {
-  final LicensedCompany company;
-
-  LicensedCompaniesCreated(this.company);
+class LicensedCompaniesUpdatedSuccess extends LicensedCompaniesState {
+  LicensedCompaniesUpdatedSuccess.fromLastState(
+    super.lastState, {
+    required List<LicensedCompany> companies,
+  }) : super.fromLastState(
+          companies: companies,
+        );
   @override
-  List<Object?> get props => [company];
+  List<Object?> get props => [];
+}
+
+class LicensedCompaniesUpdatedFailure extends LicensedCompaniesState {
+  LicensedCompaniesUpdatedFailure.fromLastState(super.lastState)
+      : super.fromLastState();
+  @override
+  List<Object?> get props => [];
+}
+
+class LicensedCompaniesCreatedInProgress extends LicensedCompaniesState {
+  LicensedCompaniesCreatedInProgress.fromLastState(super.lastState)
+      : super.fromLastState();
+  @override
+  List<Object?> get props => [];
+}
+
+class LicensedCompaniesCreatedSuccess extends LicensedCompaniesState {
+  LicensedCompaniesCreatedSuccess.fromLastState(super.lastState,
+      {required List<LicensedCompany> companies})
+      : super.fromLastState(
+          companies: companies,
+        );
+  @override
+  List<Object?> get props => [];
+}
+
+class LicensedCompaniesCreatedFailure extends LicensedCompaniesState {
+  LicensedCompaniesCreatedFailure.fromLastState(super.lastState)
+      : super.fromLastState();
+  @override
+  List<Object?> get props => [];
 }

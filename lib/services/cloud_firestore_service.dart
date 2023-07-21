@@ -3,27 +3,26 @@ import 'package:painel_mentor/entities/licenced_company.dart';
 
 class CloudFirestoreService {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
-  late CollectionReference licensedCompaniesCollection;
+  late CollectionReference licensedCompaniesCollection =
+      firestore.collection("licenciados").withConverter<LicensedCompany>(
+            fromFirestore: (snapshot, _) =>
+                LicensedCompany.fromJson(snapshot.data()!),
+            toFirestore: (document, _) => document.toJson(),
+          );
 
-  void initFirestore() {
-    licensedCompaniesCollection = firestore
-        .collection("licensed_companies")
-        .withConverter<LicensedCompany>(
-          fromFirestore: (snapshot, _) =>
-              LicensedCompany.fromJson(snapshot.data()!),
-          toFirestore: (document, _) => document.toJson(),
-        );
-  }
-
-  Future<List> getCollection() async {
-    return (await licensedCompaniesCollection.get()).docs;
+  Future<QuerySnapshot> getCollection() async {
+    return (await licensedCompaniesCollection.get());
   }
 
   Future<void> setCompany(LicensedCompany company) async {
-    return await licensedCompaniesCollection.doc(company.id).set(company);
+    return await licensedCompaniesCollection
+        .doc(company.id.toString())
+        .set(company);
   }
 
   Future<void> deleteCompany(LicensedCompany company) async {
-    return await licensedCompaniesCollection.doc(company.id).delete();
+    return await licensedCompaniesCollection
+        .doc(company.id.toString())
+        .delete();
   }
 }

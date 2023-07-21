@@ -1,5 +1,5 @@
 class LicensedCompany {
-  final String id;
+  final int id;
   final String name;
   final String accessUrl;
 
@@ -10,7 +10,7 @@ class LicensedCompany {
   });
 
   LicensedCompany copyWith({
-    String? id,
+    int? id,
     String? name,
     String? accessUrl,
   }) {
@@ -24,15 +24,15 @@ class LicensedCompany {
   LicensedCompany.fromJson(Map<String, dynamic> json)
       : this(
           id: json['id'],
-          name: json['name'],
-          accessUrl: json['accessUrl'],
+          name: json['nome'],
+          accessUrl: json['link'],
         );
 
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'name': name,
-      'accessUrl': accessUrl,
+      'nome': name,
+      'link': accessUrl,
     };
   }
 }
