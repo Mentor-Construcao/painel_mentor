@@ -1,9 +1,11 @@
-class LicensedCompany {
+import 'package:equatable/equatable.dart';
+
+class LicensedCompany extends Equatable {
   final int id;
   final String name;
   final String accessUrl;
 
-  LicensedCompany({
+  const LicensedCompany({
     required this.id,
     required this.name,
     required this.accessUrl,
@@ -35,4 +37,7 @@ class LicensedCompany {
       'link': accessUrl,
     };
   }
+
+  @override
+  List<Object?> get props => [id, name, accessUrl];
 }

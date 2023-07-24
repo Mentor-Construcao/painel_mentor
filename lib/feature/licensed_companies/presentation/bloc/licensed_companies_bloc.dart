@@ -29,10 +29,10 @@ class LicensedCompaniesBloc
       final list = await _getCompanies!();
       if (list != null && list.isNotEmpty) {
         companies = list;
-        emit(LicensedCompaniesLoaded.fromLastState(state, companies));
+        emit(LicensedCompaniesLoaded(companies));
       }
     } catch (e, s) {
-      emit(LicensedCompaniesError.fromLastState(state));
+      emit(LicensedCompaniesError(e.toString()));
       addError(e, s);
     }
   }
@@ -41,23 +41,22 @@ class LicensedCompaniesBloc
     CreatedCompanyEvent event,
     Emitter<LicensedCompaniesState> emit,
   ) async {
-    emit(LicensedCompaniesCreatedInProgress.fromLastState(state));
-    try {
-      if (state.companies != null) {
-        int id;
-        id = state.companies!.last.id + 1;
-        await _addCompany!(event.company.copyWith(id: id));
+    if (state is LicensedCompaniesLoaded) {
+      final companies = (state as LicensedCompaniesLoaded).companies;
+      if (companies != null && companies.isNotEmpty) {
+        emit(LicensedCompaniesCreatedInProgress());
+        try {
+          int id;
+          id = companies.last.id + 1;
+          final company = event.company.copyWith(id: id);
+          await _addCompany!(company);
+          emit(LicensedCompaniesCreatedSuccess(company));
+          add(FetchCompaniesEvent());
+        } catch (e, s) {
+          emit(LicensedCompaniesCreatedFailure(e.toString()));
+          addError(e, s);
+        }
       }
-      emit(
-        LicensedCompaniesCreatedSuccess.fromLastState(
-          state,
-          companies: state.companies!,
-        ),
-      );
-      add(FetchCompaniesEvent());
-    } catch (e, s) {
-      emit(LicensedCompaniesCreatedFailure.fromLastState(state));
-      addError(e, s);
     }
   }
 
@@ -65,18 +64,15 @@ class LicensedCompaniesBloc
     UpdatedCompanyEvent event,
     Emitter<LicensedCompaniesState> emit,
   ) async {
-    emit(LicensedCompaniesUpdatedInProgress.fromLastState(state));
+    emit(LicensedCompaniesUpdatedInProgress());
     try {
       await _addCompany!(event.company);
       emit(
-        LicensedCompaniesUpdatedSuccess.fromLastState(
-          state,
-          companies: state.companies ?? [],
-        ),
+        LicensedCompaniesUpdatedSuccess(event.company),
       );
       add(FetchCompaniesEvent());
     } catch (e, s) {
-      emit(LicensedCompaniesUpdatedFailure.fromLastState(state));
+      emit(LicensedCompaniesUpdatedFailure(e.toString()));
       addError(e, s);
     }
   }
