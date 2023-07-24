@@ -1,11 +1,11 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:painel_mentor/entities/licenced_company.dart';
-import 'package:painel_mentor/feature/licensed_companies/domain/usecases/add_company.dart';
-import 'package:painel_mentor/feature/licensed_companies/domain/usecases/get_companies.dart';
-import 'package:painel_mentor/feature/licensed_companies/presentation/bloc/licensed_companies_event.dart';
-import 'package:painel_mentor/feature/licensed_companies/presentation/bloc/licensed_companies_state.dart';
+import 'package:painel_mentor/features/licensed_companies/domain/entities/licenced_company.dart';
+import 'package:painel_mentor/features/licensed_companies/domain/usecases/add_company.dart';
+import 'package:painel_mentor/features/licensed_companies/domain/usecases/get_companies.dart';
+import 'package:painel_mentor/features/licensed_companies/presentation/bloc/licensed_companies_event.dart';
+import 'package:painel_mentor/features/licensed_companies/presentation/bloc/licensed_companies_state.dart';
 
 class LicensedCompaniesBloc
     extends Bloc<LicensedCompaniesEvent, LicensedCompaniesState> {

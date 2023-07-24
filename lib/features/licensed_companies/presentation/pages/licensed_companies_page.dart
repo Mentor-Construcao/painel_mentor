@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:painel_mentor/entities/licenced_company.dart';
-import 'package:painel_mentor/feature/licensed_companies/presentation/bloc/licensed_companies_bloc.dart';
-import 'package:painel_mentor/feature/licensed_companies/presentation/bloc/licensed_companies_event.dart';
-import 'package:painel_mentor/feature/licensed_companies/presentation/bloc/licensed_companies_state.dart';
-import 'package:painel_mentor/feature/licensed_companies/presentation/pages/licensed_company_page.dart';
+import 'package:painel_mentor/features/licensed_companies/domain/entities/licenced_company.dart';
+import 'package:painel_mentor/features/licensed_companies/presentation/bloc/licensed_companies_bloc.dart';
+import 'package:painel_mentor/features/licensed_companies/presentation/bloc/licensed_companies_event.dart';
+import 'package:painel_mentor/features/licensed_companies/presentation/bloc/licensed_companies_state.dart';
+import 'package:painel_mentor/features/licensed_companies/presentation/pages/licensed_company_page.dart';
 import 'package:painel_mentor/injection.dart';
 
 class LicensedCompaniesPage extends StatefulWidget {

@@ -1,7 +1,7 @@
 import 'package:get_it/get_it.dart';
-import 'package:painel_mentor/feature/licensed_companies/domain/usecases/add_company.dart';
-import 'package:painel_mentor/feature/licensed_companies/domain/usecases/get_companies.dart';
-import 'package:painel_mentor/feature/licensed_companies/presentation/bloc/licensed_companies_bloc.dart';
+import 'package:painel_mentor/features/licensed_companies/domain/usecases/add_company.dart';
+import 'package:painel_mentor/features/licensed_companies/domain/usecases/get_companies.dart';
+import 'package:painel_mentor/features/licensed_companies/presentation/bloc/licensed_companies_bloc.dart';
 import 'package:painel_mentor/services/cloud_firestore_service.dart';
 
 final sl = GetIt.instance;

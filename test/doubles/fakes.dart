@@ -1,4 +1,4 @@
-import 'package:painel_mentor/entities/licenced_company.dart';
+import 'package:painel_mentor/features/licensed_companies/domain/entities/licenced_company.dart';
 
 LicensedCompany fakeCompany({
   int? id,

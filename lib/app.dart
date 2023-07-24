@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:painel_mentor/feature/licensed_companies/presentation/pages/licensed_companies_page.dart';
+import 'package:painel_mentor/features/licensed_companies/presentation/pages/licensed_companies_page.dart';
 
 class App extends StatelessWidget {
   const App({super.key});

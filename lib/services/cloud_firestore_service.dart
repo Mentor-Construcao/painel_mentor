@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:painel_mentor/entities/licenced_company.dart';
+import 'package:painel_mentor/features/licensed_companies/domain/entities/licenced_company.dart';
 
 class CloudFirestoreService {
   FirebaseFirestore firestore = FirebaseFirestore.instance;

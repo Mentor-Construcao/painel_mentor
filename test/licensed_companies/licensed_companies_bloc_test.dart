@@ -1,10 +1,10 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:painel_mentor/entities/licenced_company.dart';
-import 'package:painel_mentor/feature/licensed_companies/presentation/bloc/licensed_companies_bloc.dart';
-import 'package:painel_mentor/feature/licensed_companies/presentation/bloc/licensed_companies_event.dart';
-import 'package:painel_mentor/feature/licensed_companies/presentation/bloc/licensed_companies_state.dart';
+import 'package:painel_mentor/features/licensed_companies/domain/entities/licenced_company.dart';
+import 'package:painel_mentor/features/licensed_companies/presentation/bloc/licensed_companies_bloc.dart';
+import 'package:painel_mentor/features/licensed_companies/presentation/bloc/licensed_companies_event.dart';
+import 'package:painel_mentor/features/licensed_companies/presentation/bloc/licensed_companies_state.dart';
 
 import '../doubles/fakes.dart';
 import '../doubles/use_cases.mocks.dart';

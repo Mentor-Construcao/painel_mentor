@@ -6,10 +6,11 @@
 import 'dart:async' as _i4;
 
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:painel_mentor/entities/licenced_company.dart' as _i5;
-import 'package:painel_mentor/feature/licensed_companies/domain/usecases/add_company.dart'
+import 'package:painel_mentor/features/licensed_companies/domain/entities/licenced_company.dart'
+    as _i5;
+import 'package:painel_mentor/features/licensed_companies/domain/usecases/add_company.dart'
     as _i3;
-import 'package:painel_mentor/feature/licensed_companies/domain/usecases/get_companies.dart'
+import 'package:painel_mentor/features/licensed_companies/domain/usecases/get_companies.dart'
     as _i6;
 import 'package:painel_mentor/services/cloud_firestore_service.dart' as _i2;
 
