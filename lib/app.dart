@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:painel_mentor/features/licensed_companies/presentation/pages/licensed_companies_page.dart';
+import 'package:painel_mentor/routes.dart';
+import 'package:painel_mentor/theme.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -8,11 +9,9 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Painel Mentor',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const LicensedCompaniesPage(),
+      routes: mentorRoutes,
+      theme: mentorTheme,
+      initialRoute: '/licensed_companies',
     );
   }
 }
