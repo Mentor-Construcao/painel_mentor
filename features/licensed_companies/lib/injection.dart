@@ -14,7 +14,7 @@ void _blocs() {
   sl.registerSingleton<LicensedCompaniesBloc>(
     LicensedCompaniesBloc(
       sl<GetCompanies>(),
-      sl<AddCompany>(),
+      sl<PutCompany>(),
     ),
   );
 }
@@ -25,8 +25,8 @@ void _usesCases() {
       sl<ILicencedCompaniesRepository>(),
     ),
   );
-  sl.registerSingleton<AddCompany>(
-    AddCompany(
+  sl.registerSingleton<PutCompany>(
+    PutCompany(
       sl<ILicencedCompaniesRepository>(),
     ),
   );

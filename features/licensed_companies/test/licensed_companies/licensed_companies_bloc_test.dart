@@ -25,7 +25,7 @@ void main() {
       when(_getCompanies.call())
           .thenAnswer((realInvocation) async => companies);
     },
-    act: (bloc) => bloc.add(FetchCompaniesEvent()),
+    act: (bloc) => bloc.add(InitializedCompaniesEvent()),
     expect: () => [LicensedCompaniesLoaded(companies)],
   );
 
@@ -34,7 +34,7 @@ void main() {
     build: () => bloc,
     setUp: () => _setupCreateCompany(companies),
     act: (bloc) {
-      bloc.add(FetchCompaniesEvent());
+      bloc.add(InitializedCompaniesEvent());
       bloc.add(CreatedCompanyEvent(fakeCompany(id: 1000)));
     },
     expect: () => [

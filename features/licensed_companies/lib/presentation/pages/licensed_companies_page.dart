@@ -5,18 +5,13 @@ import 'package:core/core.dart';
 
 import '../blocs/blocs.dart';
 
-class LicensedCompaniesPage extends StatefulWidget {
+class LicensedCompaniesPage extends StatelessWidget {
   const LicensedCompaniesPage({super.key});
 
   @override
-  State<LicensedCompaniesPage> createState() => _LicensedCompaniesPageState();
-}
-
-class _LicensedCompaniesPageState extends State<LicensedCompaniesPage> {
-  @override
   Widget build(BuildContext context) {
     return BlocProvider<LicensedCompaniesBloc>.value(
-      value: sl<LicensedCompaniesBloc>(),
+      value: sl<LicensedCompaniesBloc>()..add(InitializedCompaniesEvent()),
       child: Scaffold(
         appBar: AppBar(
           title: BlocBuilder<LicensedCompaniesBloc, LicensedCompaniesState>(
@@ -35,7 +30,7 @@ class _LicensedCompaniesPageState extends State<LicensedCompaniesPage> {
               if (state is LicensedCompaniesInital) {
                 context
                     .read<LicensedCompaniesBloc>()
-                    .add(FetchCompaniesEvent());
+                    .add(InitializedCompaniesEvent());
               }
               if (state is LicensedCompaniesLoaded) {
                 if (state.companies == null || state.companies!.isEmpty) {
@@ -109,29 +104,25 @@ class _LicensedCompaniesPageState extends State<LicensedCompaniesPage> {
           ),
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: _onAddCompany,
+          onPressed: () => _onAddCompany(context),
           child: const Icon(Icons.add),
         ),
       ),
     );
   }
 
-  void _onAddCompany() async {
-    final LicensedCompany? company = await Navigator.pushNamed(
-      context,
+  void _onAddCompany(
+    BuildContext context,
+  ) async {
+    await Navigator.of(context).pushNamed(
       '/licensed_companie',
     );
-    if (company != null &&
-        company.name.isNotEmpty &&
-        company.accessUrl.isNotEmpty &&
-        mounted) {
-      context.read<LicensedCompaniesBloc>().add(CreatedCompanyEvent(company));
-    }
   }
 
   void _onEditCompany(BuildContext context, LicensedCompany company) async {
     await Navigator.of(context).pushNamed(
       '/licensed_companie',
+      arguments: company,
     );
     //     await Navigator.pushNamed<LicensedCompany?>(
     //   context,

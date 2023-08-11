@@ -2,7 +2,7 @@ part of 'licensed_companies_bloc.dart';
 
 abstract class LicensedCompaniesEvent extends Equatable {}
 
-class FetchCompaniesEvent extends LicensedCompaniesEvent {
+class InitializedCompaniesEvent extends LicensedCompaniesEvent {
   @override
   List<Object?> get props => [];
 }

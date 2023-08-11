@@ -10,18 +10,18 @@ part 'licensed_companies_state.dart';
 class LicensedCompaniesBloc
     extends Bloc<LicensedCompaniesEvent, LicensedCompaniesState> {
   final GetCompanies _getCompanies;
-  final AddCompany _addCompany;
+  final PutCompany _addCompany;
   LicensedCompaniesBloc(
     this._getCompanies,
     this._addCompany,
   ) : super(LicensedCompaniesInital()) {
-    on<FetchCompaniesEvent>(_onFetchCompaniesEvent);
+    on<InitializedCompaniesEvent>(_onInitializedCompaniesEvent);
     on<CreatedCompanyEvent>(_onCreatedCompanyEvent);
     on<UpdatedCompanyEvent>(_onUpdatedCompanyEvent);
   }
 
-  FutureOr<void> _onFetchCompaniesEvent(
-    FetchCompaniesEvent event,
+  FutureOr<void> _onInitializedCompaniesEvent(
+    InitializedCompaniesEvent event,
     Emitter<LicensedCompaniesState> emit,
   ) async {
     final List<LicensedCompany> companies;
@@ -51,7 +51,7 @@ class LicensedCompaniesBloc
           final company = event.company.copyWith(id: id);
           await _addCompany(company);
           emit(LicensedCompaniesCreatedSuccess(company));
-          add(FetchCompaniesEvent());
+          add(InitializedCompaniesEvent());
         } catch (e, s) {
           emit(LicensedCompaniesCreatedFailure(e.toString()));
           addError(e, s);
@@ -70,7 +70,7 @@ class LicensedCompaniesBloc
       emit(
         LicensedCompaniesUpdatedSuccess(event.company),
       );
-      add(FetchCompaniesEvent());
+      add(InitializedCompaniesEvent());
     } catch (e, s) {
       emit(LicensedCompaniesUpdatedFailure(e.toString()));
       addError(e, s);

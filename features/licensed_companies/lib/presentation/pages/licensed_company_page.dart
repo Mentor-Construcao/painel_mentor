@@ -1,6 +1,8 @@
+import 'package:core/core.dart';
 import 'package:core/injections_service/injection.dart';
 import 'package:flutter/material.dart';
-import '../../domain/entities/licenced_company.dart';
+import 'package:licensed_companies/entities.dart';
+
 import '../blocs/blocs.dart';
 
 class LicensedCompanyPage extends StatefulWidget {
@@ -17,42 +19,47 @@ class _LicensedCompanyPageState extends State<LicensedCompanyPage> {
 
   final urlController = TextEditingController();
 
-  final LicensedCompaniesBloc bloc = sl<LicensedCompaniesBloc>();
-
+  bool? exclued = false;
   @override
   void initState() {
     if (widget.company != null) {
       nameController.text = widget.company!.name;
       urlController.text = widget.company!.accessUrl;
+      exclued = widget.company?.exclued;
     }
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: ListView(
-          children: [
-            Text("Código: ${widget.company?.id ?? ''}"),
-            _buildTextFormField(
-              controller: nameController,
-              label: 'Nome',
-              action: TextInputAction.next,
-            ),
-            _buildTextFormField(
-              controller: urlController,
-              label: 'URL de acesso',
-              action: TextInputAction.done,
-            ),
-          ],
+    return BlocProvider<LicensedCompaniesBloc>(
+      create: (context) => sl<LicensedCompaniesBloc>(),
+      child: Scaffold(
+        appBar: AppBar(),
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text("Código: ${widget.company?.id ?? ''}"),
+              _buildTextFormField(
+                controller: nameController,
+                label: 'Nome',
+                action: TextInputAction.next,
+              ),
+              _buildTextFormField(
+                controller: urlController,
+                label: 'URL de acesso',
+                action: TextInputAction.done,
+              ),
+              _excluidCheckBox(),
+            ],
+          ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _onConfirm,
-        child: const Icon(Icons.check),
+        floatingActionButton: FloatingActionButton(
+          onPressed: _onConfirm,
+          child: const Icon(Icons.check),
+        ),
       ),
     );
   }
@@ -60,22 +67,24 @@ class _LicensedCompanyPageState extends State<LicensedCompanyPage> {
   void _onConfirm() {
     if (widget.company != null) {
       if (widget.company!.name != nameController.text ||
-          widget.company!.accessUrl != urlController.text) {
+          widget.company!.accessUrl != urlController.text ||
+          widget.company!.exclued != exclued) {
         var editedCompany = widget.company!.copyWith(
           name: nameController.text,
           accessUrl: urlController.text,
+          exclued: exclued,
         );
-        bloc.add(UpdatedCompanyEvent(editedCompany));
+        sl<LicensedCompaniesBloc>().add(UpdatedCompanyEvent(editedCompany));
       }
     } else if (nameController.text.isNotEmpty &&
         urlController.text.isNotEmpty) {
-      bloc.add(
+      sl<LicensedCompaniesBloc>().add(
         CreatedCompanyEvent(
           LicensedCompany(
             id: -1,
             name: nameController.text,
             accessUrl: urlController.text,
-            exclued: false,
+            exclued: exclued ?? false,
           ),
         ),
       );
@@ -102,4 +111,17 @@ class _LicensedCompanyPageState extends State<LicensedCompanyPage> {
       ),
     );
   }
+
+  Widget _excluidCheckBox() => Row(
+        children: [
+          Checkbox(
+              value: exclued ?? false,
+              onChanged: (value) {
+                setState(() {
+                  exclued = value;
+                });
+              }),
+          const Text('Excluído/Inativado')
+        ],
+      );
 }
