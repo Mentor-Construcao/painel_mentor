@@ -15,7 +15,7 @@ class LicensedCompaniesRepository implements ILicencedCompaniesRepository {
   Future<void> put(LicensedCompany licensedCompany) async {
     await licencedCompaniesFirebaseCloudData.add(
       licensedCompany,
-      licensedCompany.id.toString(),
+      '${licensedCompany.id} - ${licensedCompany.name}',
     );
     _onLicensedCompanyPut.add(licensedCompany);
   }

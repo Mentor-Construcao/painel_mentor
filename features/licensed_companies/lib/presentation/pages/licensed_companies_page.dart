@@ -43,50 +43,56 @@ class LicensedCompaniesPage extends StatelessWidget {
                   itemCount: state.companies?.length,
                   itemBuilder: (context, index) {
                     final company = state.companies?[index];
-                    return ElevatedButton(
-                      onPressed: () => _onEditCompany(context, company),
-                      child: Row(
-                        children: [
-                          Container(
-                            width: 32,
-                            height: 32,
-                            decoration: BoxDecoration(
-                              color: Colors.deepPurple,
-                              borderRadius: BorderRadius.circular(100),
-                            ),
-                            child: Center(
-                              child: Text(
-                                company!.id.toString(),
-                                style: const TextStyle(
-                                  color: Colors.white,
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ElevatedButton(
+                        onPressed: () => _onEditCompany(context, company),
+                        child: Row(
+                          children: [
+                            Container(
+                              width: 32,
+                              height: 32,
+                              decoration: BoxDecoration(
+                                color: Colors.deepPurple,
+                                borderRadius: BorderRadius.circular(100),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  company!.id.toString(),
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                          Flexible(
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 16.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Flexible(child: Text(company.name)),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      Flexible(
-                                          child: Text(
-                                        company.accessUrl.toString(),
-                                      )),
-                                    ],
-                                  ),
-                                ],
+                            Flexible(
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 16.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Flexible(child: Text(company.name)),
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: 8.0,
+                                    ),
+                                    Row(
+                                      children: [
+                                        Flexible(
+                                            child: SelectableText(
+                                          company.accessUrl.toString(),
+                                        )),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     );
                   },
