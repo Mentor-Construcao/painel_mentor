@@ -20,6 +20,8 @@ dependencies:
   #features
   licensed_companies:
     path: features/licensed_companies
+  core:
+    path: core
 
 dev_dependencies:
   flutter_test:
