@@ -14,7 +14,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   cloud_firestore: ^4.8.3
   firebase_core: ^2.15.0
-  uuid: ^3.0.7
+  uuid: any
   bloc_test: ^9.1.3
   mockito: ^5.4.2
   #features
