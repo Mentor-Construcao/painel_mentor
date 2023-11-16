@@ -20,7 +20,15 @@ dependencies:
   #features
   licensed_companies:
     path: features/licensed_companies
+  core: 
+    path: problemadasda
 
+
+    da
+    sdasd
+
+
+    
 dev_dependencies:
   flutter_test:
     sdk: flutter
