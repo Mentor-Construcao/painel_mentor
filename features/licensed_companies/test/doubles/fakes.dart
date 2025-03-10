@@ -10,4 +10,5 @@ LicensedCompany fakeCompany({
       name: name ?? 'name',
       accessUrl: url ?? 'accessUrl',
       exclued: false,
+      autoBackup: true,
     );
