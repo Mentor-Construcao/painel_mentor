@@ -20,6 +20,8 @@ dependencies:
   #features
   licensed_companies:
     path: features/licensed_companies
+  backups: 
+    path: features/backups
   core:
     path: core
 

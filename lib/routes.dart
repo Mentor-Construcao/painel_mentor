@@ -1,6 +1,8 @@
+import 'package:backups/presentation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:licensed_companies/domain/entities/licenced_company.dart';
 import 'package:licensed_companies/presentation.dart';
+import 'package:painel_mentor/home_page.dart';
 
 Map<String, Widget Function(BuildContext)> get mentorRoutes => {
       '/licensed_companies': (context) => const LicensedCompaniesPage(),
@@ -8,4 +10,6 @@ Map<String, Widget Function(BuildContext)> get mentorRoutes => {
             company:
                 ModalRoute.of(context)!.settings.arguments as LicensedCompany?,
           ),
+      '/home': (context) => const HomePage(),
+      '/backup': (context) => BackupPage(),
     };

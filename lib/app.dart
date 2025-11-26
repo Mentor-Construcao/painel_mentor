@@ -11,7 +11,7 @@ class App extends StatelessWidget {
       title: 'Painel Mentor',
       routes: mentorRoutes,
       theme: mentorTheme,
-      initialRoute: '/licensed_companies',
+      initialRoute: '/home',
     );
   }
 }
