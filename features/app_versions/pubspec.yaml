@@ -1,0 +1,24 @@
+name: app_versions
+description: App versions management for Mentor-app
+publish_to: none
+version: 0.0.1
+homepage:
+
+environment:
+  sdk: '>=3.0.6 <4.0.0'
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cloud_firestore: ^4.8.3
+  core:
+    path: ../../core
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+  build_runner: ^2.4.6
+
+flutter:
