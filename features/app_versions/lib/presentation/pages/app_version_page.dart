@@ -51,6 +51,10 @@ class _AppVersionPageState extends State<AppVersionPage> {
       _alertMessageController.text = widget.release!.alertMessage;
       _showAlertMessage = widget.release!.showAlertMessage;
       _mandatoryUpdate = widget.release!.mandatoryUpdate;
+    } else {
+      _titleController.text = 'Nova versão disponível!';
+      _descriptionController.text =
+          'Uma nova versão do aplicativo está disponível na loja.';
     }
   }
 
@@ -80,7 +84,7 @@ class _AppVersionPageState extends State<AppVersionPage> {
                 controller: _buildNumberController,
                 label: 'Build incremental',
                 keyboardType: TextInputType.number,
-                readOnly: widget.release != null,
+                enabled: widget.release == null,
                 validator: (value) {
                   final buildNumber = int.tryParse(value ?? '');
                   if (buildNumber == null) {
@@ -173,14 +177,17 @@ class _AppVersionPageState extends State<AppVersionPage> {
     String? Function(String?)? validator,
     TextInputType? keyboardType,
     int maxLines = 1,
-    bool readOnly = false,
+    bool enabled = true,
   }) {
     return TextFormField(
       controller: controller,
       validator: validator,
       keyboardType: keyboardType,
       maxLines: maxLines,
-      readOnly: readOnly,
+      enabled: enabled,
+      readOnly: !enabled,
+      canRequestFocus: enabled,
+      enableInteractiveSelection: enabled,
       decoration: InputDecoration(
         labelText: label,
         border: const OutlineInputBorder(),

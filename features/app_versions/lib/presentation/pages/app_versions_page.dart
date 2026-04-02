@@ -111,9 +111,9 @@ class AppVersionsPage extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              settings.playStoreUrl.isEmpty
-                  ? 'Play Store: não configurado'
-                  : 'Play Store: ${settings.playStoreUrl}',
+              settings.googlePlayStoreUrl.isEmpty
+                  ? 'Google Play Store: não configurado'
+                  : 'Google Play Store: ${settings.googlePlayStoreUrl}',
             ),
             const SizedBox(height: 4),
             Text(
@@ -132,75 +132,145 @@ class AppVersionsPage extends StatelessWidget {
     AppVersionRelease release, {
     required bool isCurrent,
   }) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Card(
       child: InkWell(
         onTap: () => _onEditVersion(context, release),
+        borderRadius: BorderRadius.circular(12),
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
-                    child: Text(
-                      '${release.title} - build ${release.buildNumber}',
-                      style: Theme.of(context).textTheme.titleMedium,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          release.title,
+                          style: Theme.of(context).textTheme.titleLarge,
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          'Build ${release.buildNumber}',
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                      ],
                     ),
                   ),
-                  if (isCurrent) _buildStatusChip(),
                 ],
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 12),
+              Wrap(
+                spacing: 8,
+                runSpacing: 8,
+                children: [
+                  FilterChip(
+                    label: Text(release.isActive ? 'Ativa' : 'Inativa'),
+                    selected: release.isActive,
+                    showCheckmark: false,
+                    avatar: Icon(
+                      release.isActive
+                          ? Icons.check_circle
+                          : Icons.pause_circle_outline,
+                      size: 18,
+                      color: release.isActive ? Colors.green : Colors.black,
+                    ),
+                    color: WidgetStateColor.resolveWith((states) {
+                      if (release.isActive) {
+                        return Colors.green.withValues(alpha: 0.35);
+                      }
+                      return Colors.grey.withValues(alpha: 0.12);
+                    }),
+                    onSelected: (_) => _onToggleActive(context, release),
+                  ),
+                  if (isCurrent)
+                    Chip(
+                      label: const Text('Atual'),
+                      avatar: const Icon(Icons.push_pin_outlined, size: 18),
+                      backgroundColor: Colors.blue.withValues(alpha: 0.35),
+                    ),
+                ],
+              ),
+              const SizedBox(height: 12),
               Text(release.description),
-              const SizedBox(height: 8),
-              Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      release.isActive ? 'Status: ativa' : 'Status: inativa',
-                    ),
-                  ),
-                  Switch(
-                    value: release.isActive,
-                    onChanged: (value) => _onToggleActive(
-                      context,
-                      release,
-                      value,
-                    ),
-                  ),
-                ],
-              ),
               if (release.hasAlertMessage) ...[
-                const SizedBox(height: 8),
-                Text(
-                  'Alerta: ${release.alertMessage}',
-                  style: const TextStyle(color: Colors.orange),
+                const SizedBox(height: 12),
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.orange.withValues(alpha: 0.12),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                      color: Colors.orange.withValues(alpha: 0.32),
+                    ),
+                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const Padding(
+                        padding: EdgeInsetsGeometry.only(bottom: 2),
+                        child: Icon(
+                          Icons.warning_amber_rounded,
+                          color: Colors.orange,
+                          size: 22,
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          release.alertMessage,
+                          style: Theme.of(context).textTheme.labelLarge,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ],
               if (release.mandatoryUpdate) ...[
-                const SizedBox(height: 8),
-                const Text(
-                  'Atualização obrigatória para continuar usando o app.',
+                const SizedBox(height: 12),
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: colorScheme.errorContainer,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                      color: colorScheme.error.withValues(alpha: 0.24),
+                    ),
+                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Icon(
+                        Icons.system_update_alt_rounded,
+                        color: colorScheme.onErrorContainer,
+                        size: 20,
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Atualização obrigatória',
+                              style: Theme.of(context).textTheme.labelLarge,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _buildStatusChip() {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-      decoration: BoxDecoration(
-        color: Colors.green,
-        borderRadius: BorderRadius.circular(100),
-      ),
-      child: const Text(
-        'ATUAL',
-        style: TextStyle(color: Colors.white),
       ),
     );
   }
@@ -262,16 +332,47 @@ class AppVersionsPage extends StatelessWidget {
     return state.releases.map((release) => release.buildNumber).toSet();
   }
 
-  void _onToggleActive(
+  Future<void> _onToggleActive(
     BuildContext context,
     AppVersionRelease release,
-    bool value,
-  ) {
+  ) async {
+    final shouldActivate = !release.isActive;
+    if (shouldActivate) {
+      final confirmed = await showDialog<bool>(
+        context: context,
+        builder: (dialogContext) => AlertDialog(
+          title: const Text('Ativar versão'),
+          content: Text(
+            'Deseja ativar a versão build ${release.buildNumber}? A versão ativa atual será inativada automaticamente.',
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(dialogContext).pop(false),
+              child: const Text('Cancelar'),
+            ),
+            FilledButton(
+              onPressed: () => Navigator.of(dialogContext).pop(true),
+              child: const Text('Ativar'),
+            ),
+          ],
+        ),
+      );
+
+      if (confirmed != true) {
+        return;
+      }
+    }
+
+    if (!context.mounted) {
+      return;
+    }
+
     context.read<AppVersionsBloc>().add(
           SavedAppVersionEvent(
-            release.copyWith(isActive: value),
+            release.copyWith(isActive: shouldActivate),
             originalBuildNumber: release.buildNumber,
           ),
         );
   }
+
 }

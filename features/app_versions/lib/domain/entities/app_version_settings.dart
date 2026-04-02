@@ -2,31 +2,32 @@ import 'package:core/core.dart' show Equatable;
 import 'package:core/firebase_cloud_firestore_model.dart';
 
 class AppVersionSettings extends Equatable with CloudFirestoreModel {
-  final String playStoreUrl;
+  final String googlePlayStoreUrl;
   final String appStoreUrl;
 
   const AppVersionSettings({
-    required this.playStoreUrl,
+    required this.googlePlayStoreUrl,
     required this.appStoreUrl,
   });
 
   static const empty = AppVersionSettings(
-    playStoreUrl: '',
+    googlePlayStoreUrl: '',
     appStoreUrl: '',
   );
 
   AppVersionSettings.fromJson(Map<String, dynamic> json)
       : this(
-          playStoreUrl: json['playStoreUrl'] ?? '',
+          googlePlayStoreUrl:
+              json['googlePlayStoreUrl'] ?? json['playStoreUrl'] ?? '',
           appStoreUrl: json['appStoreUrl'] ?? '',
         );
 
   AppVersionSettings copyWith({
-    String? playStoreUrl,
+    String? googlePlayStoreUrl,
     String? appStoreUrl,
   }) {
     return AppVersionSettings(
-      playStoreUrl: playStoreUrl ?? this.playStoreUrl,
+      googlePlayStoreUrl: googlePlayStoreUrl ?? this.googlePlayStoreUrl,
       appStoreUrl: appStoreUrl ?? this.appStoreUrl,
     );
   }
@@ -34,14 +35,14 @@ class AppVersionSettings extends Equatable with CloudFirestoreModel {
   @override
   Map<String, dynamic> toJson() {
     return {
-      'playStoreUrl': playStoreUrl,
+      'googlePlayStoreUrl': googlePlayStoreUrl,
       'appStoreUrl': appStoreUrl,
     };
   }
 
   @override
   List<Object?> get props => [
-        playStoreUrl,
+        googlePlayStoreUrl,
         appStoreUrl,
       ];
 }

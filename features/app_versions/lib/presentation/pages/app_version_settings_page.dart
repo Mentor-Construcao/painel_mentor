@@ -18,19 +18,19 @@ class AppVersionSettingsPage extends StatefulWidget {
 
 class _AppVersionSettingsPageState extends State<AppVersionSettingsPage> {
   final _formKey = GlobalKey<FormState>();
-  final _playStoreUrlController = TextEditingController();
+  final _googlePlayStoreUrlController = TextEditingController();
   final _appStoreUrlController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    _playStoreUrlController.text = widget.settings.playStoreUrl;
+    _googlePlayStoreUrlController.text = widget.settings.googlePlayStoreUrl;
     _appStoreUrlController.text = widget.settings.appStoreUrl;
   }
 
   @override
   void dispose() {
-    _playStoreUrlController.dispose();
+    _googlePlayStoreUrlController.dispose();
     _appStoreUrlController.dispose();
     super.dispose();
   }
@@ -47,9 +47,9 @@ class _AppVersionSettingsPageState extends State<AppVersionSettingsPage> {
             padding: const EdgeInsets.all(16),
             children: [
               TextFormField(
-                controller: _playStoreUrlController,
+                controller: _googlePlayStoreUrlController,
                 decoration: const InputDecoration(
-                  labelText: 'Link Play Store',
+                  labelText: 'Link Google Play Store',
                   border: OutlineInputBorder(),
                 ),
               ),
@@ -82,7 +82,7 @@ class _AppVersionSettingsPageState extends State<AppVersionSettingsPage> {
     }
 
     final settings = AppVersionSettings(
-      playStoreUrl: _playStoreUrlController.text.trim(),
+      googlePlayStoreUrl: _googlePlayStoreUrlController.text.trim(),
       appStoreUrl: _appStoreUrlController.text.trim(),
     );
 
