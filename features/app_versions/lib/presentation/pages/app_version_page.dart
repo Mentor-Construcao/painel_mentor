@@ -69,7 +69,7 @@ class _AppVersionPageState extends State<AppVersionPage> {
       value: sl<AppVersionsBloc>(),
       child: Scaffold(
         appBar: AppBar(
-          title: Text(widget.release == null ? 'Nova versao' : 'Editar versao'),
+          title: Text(widget.release == null ? 'Nova versão' : 'Editar versão'),
         ),
         body: Form(
           key: _formKey,
@@ -84,11 +84,11 @@ class _AppVersionPageState extends State<AppVersionPage> {
                 validator: (value) {
                   final buildNumber = int.tryParse(value ?? '');
                   if (buildNumber == null) {
-                    return 'Informe um build valido';
+                    return 'Informe um build válido';
                   }
                   if (widget.release == null &&
                       widget.existingBuildNumbers.contains(buildNumber)) {
-                    return 'Ja existe uma release cadastrada para essa versao';
+                    return 'Já existe uma release cadastrada para essa versão';
                   }
                   return null;
                 },
@@ -96,10 +96,10 @@ class _AppVersionPageState extends State<AppVersionPage> {
               const SizedBox(height: 12),
               _buildTextFormField(
                 controller: _titleController,
-                label: 'Titulo',
+                label: 'Título',
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
-                    return 'Informe o titulo';
+                    return 'Informe o título';
                   }
                   return null;
                 },
@@ -107,11 +107,11 @@ class _AppVersionPageState extends State<AppVersionPage> {
               const SizedBox(height: 12),
               _buildTextFormField(
                 controller: _descriptionController,
-                label: 'Descricao',
+                label: 'Descrição',
                 maxLines: 4,
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
-                    return 'Informe a descricao';
+                    return 'Informe a descrição';
                   }
                   return null;
                 },
@@ -120,7 +120,7 @@ class _AppVersionPageState extends State<AppVersionPage> {
                 contentPadding: EdgeInsets.zero,
                 title: const Text('Exibir mensagem de alerta'),
                 subtitle: const Text(
-                  'Use para avisos de risco, impacto ou cuidado antes da atualizacao.',
+                  'Use para avisos de risco, impacto ou cuidado antes da atualização.',
                 ),
                 value: _showAlertMessage,
                 onChanged: (value) {
@@ -145,9 +145,9 @@ class _AppVersionPageState extends State<AppVersionPage> {
               ],
               SwitchListTile(
                 contentPadding: EdgeInsets.zero,
-                title: const Text('Atualizacao obrigatoria'),
+                title: const Text('Atualização obrigatória'),
                 subtitle: const Text(
-                  'Quando ativada, o usuario precisa atualizar o app para continuar usando.',
+                  'Quando ativada, o usuário precisa atualizar o app para continuar usando.',
                 ),
                 value: _mandatoryUpdate,
                 onChanged: (value) {

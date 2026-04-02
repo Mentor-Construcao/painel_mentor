@@ -62,7 +62,7 @@ class AppVersionsBloc extends Bloc<AppVersionsEvent, AppVersionsState> {
 
       if (versionAlreadyExists) {
         throw Exception(
-          'Ja existe uma release cadastrada para a versao ${event.release.buildNumber}.',
+          'Já existe uma release cadastrada para a versão ${event.release.buildNumber}.',
         );
       }
 

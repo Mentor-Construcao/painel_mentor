@@ -40,7 +40,7 @@ class _AppVersionSettingsPageState extends State<AppVersionSettingsPage> {
     return BlocProvider<AppVersionsBloc>.value(
       value: sl<AppVersionsBloc>(),
       child: Scaffold(
-        appBar: AppBar(title: const Text('Configuracoes da atualizacao')),
+        appBar: AppBar(title: const Text('Configurações da atualização')),
         body: Form(
           key: _formKey,
           child: ListView(
@@ -63,7 +63,7 @@ class _AppVersionSettingsPageState extends State<AppVersionSettingsPage> {
               ),
               const SizedBox(height: 12),
               const Text(
-                'Os links sao cadastrados uma unica vez e podem ser editados quando necessario.',
+                'Os links são cadastrados uma única vez e podem ser editados quando necessário.',
               ),
             ],
           ),

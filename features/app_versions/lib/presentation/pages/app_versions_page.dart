@@ -41,7 +41,7 @@ class AppVersionsPage extends StatelessWidget {
                   _buildSettingsCard(context, state.settings),
                   const SizedBox(height: 16),
                   Text(
-                    'Historico de envios',
+                    'Histórico de envios',
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   const SizedBox(height: 8),
@@ -49,7 +49,7 @@ class AppVersionsPage extends StatelessWidget {
                     const Card(
                       child: Padding(
                         padding: EdgeInsets.all(16),
-                        child: Text('Nenhuma versao cadastrada.'),
+                        child: Text('Nenhuma versão cadastrada.'),
                       ),
                     ),
                   ...state.releases.map(
@@ -67,7 +67,7 @@ class AppVersionsPage extends StatelessWidget {
               );
             }
             return const Center(
-              child: Text('Nao foi possivel carregar as versoes.'),
+              child: Text('Não foi possível carregar as versões.'),
             );
           },
         ),
@@ -100,7 +100,7 @@ class AppVersionsPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Configuracao remota',
+                  'Configuração remota',
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 TextButton(
@@ -112,13 +112,13 @@ class AppVersionsPage extends StatelessWidget {
             const SizedBox(height: 8),
             Text(
               settings.playStoreUrl.isEmpty
-                  ? 'Play Store: nao configurado'
+                  ? 'Play Store: não configurado'
                   : 'Play Store: ${settings.playStoreUrl}',
             ),
             const SizedBox(height: 4),
             Text(
               settings.appStoreUrl.isEmpty
-                  ? 'App Store: nao configurado'
+                  ? 'App Store: não configurado'
                   : 'App Store: ${settings.appStoreUrl}',
             ),
           ],
@@ -181,7 +181,7 @@ class AppVersionsPage extends StatelessWidget {
               if (release.mandatoryUpdate) ...[
                 const SizedBox(height: 8),
                 const Text(
-                  'Atualizacao obrigatoria para continuar usando o app.',
+                  'Atualização obrigatória para continuar usando o app.',
                 ),
               ],
             ],
