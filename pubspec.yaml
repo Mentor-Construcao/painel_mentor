@@ -20,6 +20,8 @@ dependencies:
   #features
   licensed_companies:
     path: features/licensed_companies
+  app_versions:
+    path: features/app_versions
   backups: 
     path: features/backups
   core:
@@ -36,4 +38,3 @@ dev_dependencies:
 flutter:
 
   uses-material-design: true
-
