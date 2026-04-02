@@ -53,8 +53,20 @@ class AppVersionsBloc extends Bloc<AppVersionsEvent, AppVersionsState> {
     Emitter<AppVersionsState> emit,
   ) async {
     try {
+      final releases = await _getAppVersions();
+      final versionAlreadyExists = releases.any(
+        (release) =>
+            release.buildNumber == event.release.buildNumber &&
+            release.buildNumber != event.originalBuildNumber,
+      );
+
+      if (versionAlreadyExists) {
+        throw Exception(
+          'Ja existe uma release cadastrada para a versao ${event.release.buildNumber}.',
+        );
+      }
+
       if (event.release.isActive) {
-        final releases = await _getAppVersions();
         for (final release in releases) {
           if (release.buildNumber != event.release.buildNumber &&
               release.isActive) {

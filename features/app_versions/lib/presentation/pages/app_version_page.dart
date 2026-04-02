@@ -7,12 +7,12 @@ import 'package:flutter/material.dart';
 class AppVersionPageArgs {
   final AppVersionRelease? release;
   final AppVersionSettings settings;
-  final int? currentActiveBuildNumber;
+  final Set<int> existingBuildNumbers;
 
   const AppVersionPageArgs({
     this.release,
     required this.settings,
-    this.currentActiveBuildNumber,
+    required this.existingBuildNumbers,
   });
 }
 
@@ -21,12 +21,12 @@ class AppVersionPage extends StatefulWidget {
     super.key,
     this.release,
     required this.settings,
-    this.currentActiveBuildNumber,
+    required this.existingBuildNumbers,
   });
 
   final AppVersionRelease? release;
   final AppVersionSettings settings;
-  final int? currentActiveBuildNumber;
+  final Set<int> existingBuildNumbers;
 
   @override
   State<AppVersionPage> createState() => _AppVersionPageState();
@@ -52,14 +52,11 @@ class _AppVersionPageState extends State<AppVersionPage> {
       _showAlertMessage = widget.release!.showAlertMessage;
       _mandatoryUpdate = widget.release!.mandatoryUpdate;
     }
-    _buildNumberController.addListener(_onBuildChanged);
   }
 
   @override
   void dispose() {
-    _buildNumberController
-      ..removeListener(_onBuildChanged)
-      ..dispose();
+    _buildNumberController.dispose();
     _titleController.dispose();
     _descriptionController.dispose();
     _alertMessageController.dispose();
@@ -89,11 +86,13 @@ class _AppVersionPageState extends State<AppVersionPage> {
                   if (buildNumber == null) {
                     return 'Informe um build valido';
                   }
+                  if (widget.release == null &&
+                      widget.existingBuildNumbers.contains(buildNumber)) {
+                    return 'Ja existe uma release cadastrada para essa versao';
+                  }
                   return null;
                 },
               ),
-              const SizedBox(height: 12),
-              _buildComparisonCard(),
               const SizedBox(height: 12),
               _buildTextFormField(
                 controller: _titleController,
@@ -146,9 +145,9 @@ class _AppVersionPageState extends State<AppVersionPage> {
               ],
               SwitchListTile(
                 contentPadding: EdgeInsets.zero,
-                title: const Text('Estrutura para atualizacao obrigatoria'),
+                title: const Text('Atualizacao obrigatoria'),
                 subtitle: const Text(
-                  'Mantem o campo preparado para uso futuro sem alterar o modelo.',
+                  'Quando ativada, o usuario precisa atualizar o app para continuar usando.',
                 ),
                 value: _mandatoryUpdate,
                 onChanged: (value) {
@@ -166,55 +165,6 @@ class _AppVersionPageState extends State<AppVersionPage> {
         ),
       ),
     );
-  }
-
-  Widget _buildComparisonCard() {
-    final buildNumber = int.tryParse(_buildNumberController.text);
-    final currentActiveBuildNumber = widget.currentActiveBuildNumber;
-    final comparison = buildNumber == null || currentActiveBuildNumber == null
-        ? null
-        : AppVersionRelease(
-            buildNumber: buildNumber,
-            title: '',
-            description: '',
-            showAlertMessage: false,
-            alertMessage: '',
-            mandatoryUpdate: false,
-            isActive: false,
-            createdAt: '',
-          ).compareWithRemoteBuild(currentActiveBuildNumber);
-
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(12),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Comparacao incremental',
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-            const SizedBox(height: 8),
-            Text(currentActiveBuildNumber == null
-                ? 'Nao existe versao ativa no momento.'
-                : 'Build da versao ativa: $currentActiveBuildNumber'),
-            const SizedBox(height: 4),
-            Text(_comparisonText(comparison)),
-          ],
-        ),
-      ),
-    );
-  }
-
-  String _comparisonText(VersionBuildComparison? comparison) {
-    switch (comparison) {
-      case VersionBuildComparison.equal:
-        return 'O build informado e igual ao da versao ativa.';
-      case VersionBuildComparison.lower:
-        return 'O build informado esta abaixo da versao ativa atual.';
-      case null:
-        return 'Informe um build para comparar.';
-    }
   }
 
   Widget _buildTextFormField({
@@ -238,10 +188,6 @@ class _AppVersionPageState extends State<AppVersionPage> {
     );
   }
 
-  void _onBuildChanged() {
-    setState(() {});
-  }
-
   void _onConfirm() {
     if (!(_formKey.currentState?.validate() ?? false)) {
       return;
@@ -259,7 +205,12 @@ class _AppVersionPageState extends State<AppVersionPage> {
       createdAt: widget.release?.createdAt ?? DateTime.now().toIso8601String(),
     );
 
-    sl<AppVersionsBloc>().add(SavedAppVersionEvent(release));
+    sl<AppVersionsBloc>().add(
+      SavedAppVersionEvent(
+        release,
+        originalBuildNumber: widget.release?.buildNumber,
+      ),
+    );
     Navigator.of(context).pop();
   }
 }

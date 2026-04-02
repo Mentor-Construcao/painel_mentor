@@ -9,11 +9,12 @@ class InitializedAppVersionsEvent extends AppVersionsEvent {
 
 class SavedAppVersionEvent extends AppVersionsEvent {
   final AppVersionRelease release;
+  final int? originalBuildNumber;
 
-  SavedAppVersionEvent(this.release);
+  SavedAppVersionEvent(this.release, {this.originalBuildNumber});
 
   @override
-  List<Object?> get props => [release];
+  List<Object?> get props => [release, originalBuildNumber];
 }
 
 class SavedAppVersionSettingsEvent extends AppVersionsEvent {

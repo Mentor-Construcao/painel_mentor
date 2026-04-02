@@ -181,7 +181,7 @@ class AppVersionsPage extends StatelessWidget {
               if (release.mandatoryUpdate) ...[
                 const SizedBox(height: 8),
                 const Text(
-                  'Campo de atualizacao obrigatoria preparado para uso futuro.',
+                  'Atualizacao obrigatoria para continuar usando o app.',
                 ),
               ],
             ],
@@ -210,8 +210,9 @@ class AppVersionsPage extends StatelessWidget {
       '/app_version',
       arguments: AppVersionPageArgs(
         settings: settings,
-        currentActiveBuildNumber:
-            _currentActiveBuildNumber(context.read<AppVersionsBloc>().state),
+        existingBuildNumbers: _existingBuildNumbers(
+          context.read<AppVersionsBloc>().state,
+        ),
       ),
     );
   }
@@ -228,8 +229,9 @@ class AppVersionsPage extends StatelessWidget {
       arguments: AppVersionPageArgs(
         release: release,
         settings: settings,
-        currentActiveBuildNumber:
-            _currentActiveBuildNumber(context.read<AppVersionsBloc>().state),
+        existingBuildNumbers: _existingBuildNumbers(
+          context.read<AppVersionsBloc>().state,
+        ),
       ),
     );
   }
@@ -253,11 +255,11 @@ class AppVersionsPage extends StatelessWidget {
     return null;
   }
 
-  int? _currentActiveBuildNumber(AppVersionsState state) {
+  Set<int> _existingBuildNumbers(AppVersionsState state) {
     if (state is! AppVersionsLoaded) {
-      return null;
+      return {};
     }
-    return _latestActiveRelease(state.releases)?.buildNumber;
+    return state.releases.map((release) => release.buildNumber).toSet();
   }
 
   void _onToggleActive(
@@ -268,6 +270,7 @@ class AppVersionsPage extends StatelessWidget {
     context.read<AppVersionsBloc>().add(
           SavedAppVersionEvent(
             release.copyWith(isActive: value),
+            originalBuildNumber: release.buildNumber,
           ),
         );
   }

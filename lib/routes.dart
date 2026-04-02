@@ -14,6 +14,7 @@ Map<String, Widget Function(BuildContext)> get mentorRoutes => {
         return AppVersionPage(
           release: args.release,
           settings: args.settings,
+          existingBuildNumbers: args.existingBuildNumbers,
         );
       },
       '/app_version_settings': (context) => AppVersionSettingsPage(
