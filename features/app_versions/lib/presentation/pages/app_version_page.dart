@@ -52,7 +52,7 @@ class _AppVersionPageState extends State<AppVersionPage> {
       _showAlertMessage = widget.release!.showAlertMessage;
       _mandatoryUpdate = widget.release!.mandatoryUpdate;
     } else {
-      _titleController.text = 'Nova versão disponível!';
+      _titleController.text = 'Nova versão disponível';
       _descriptionController.text =
           'Uma nova versão do aplicativo está disponível na loja.';
     }
