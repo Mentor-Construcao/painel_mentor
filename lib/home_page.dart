@@ -14,6 +14,15 @@ class HomePage extends StatelessWidget {
             const Text('Painel Mentor'),
             ElevatedButton(
               onPressed: () {
+                Navigator.of(context).pushNamed('/app_versions');
+              },
+              child: const Text('Versões de Aplicativo'),
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            ElevatedButton(
+              onPressed: () {
                 Navigator.of(context).pushNamed('/licensed_companies');
               },
               child: const Text('Empresas Licenciadas'),
