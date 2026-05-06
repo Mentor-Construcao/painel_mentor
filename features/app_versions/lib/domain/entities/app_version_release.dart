@@ -7,6 +7,12 @@ enum VersionBuildComparison {
 }
 
 class AppVersionRelease extends Equatable with CloudFirestoreModel {
+  static const defaultTitle = 'Nova versão disponível';
+  static const defaultDescription =
+      'Atualize o aplicativo para acessar novas funcionalidades, melhorar o desempenho e garantir a segurança dos dados.';
+  static const defaultAlertMessage =
+      'Não atualizar, pode causar erros na sincronização e no uso do aplicativo.';
+
   final int buildNumber;
   final String title;
   final String description;
