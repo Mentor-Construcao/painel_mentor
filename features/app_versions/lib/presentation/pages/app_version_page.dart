@@ -52,9 +52,8 @@ class _AppVersionPageState extends State<AppVersionPage> {
       _showAlertMessage = widget.release!.showAlertMessage;
       _mandatoryUpdate = widget.release!.mandatoryUpdate;
     } else {
-      _titleController.text = 'Nova versão disponível';
-      _descriptionController.text =
-          'Uma nova versão do aplicativo está disponível na loja.';
+      _titleController.text = AppVersionRelease.defaultTitle;
+      _descriptionController.text = AppVersionRelease.defaultDescription;
     }
   }
 
@@ -130,6 +129,10 @@ class _AppVersionPageState extends State<AppVersionPage> {
                 onChanged: (value) {
                   setState(() {
                     _showAlertMessage = value;
+                    if (value && _alertMessageController.text.trim().isEmpty) {
+                      _alertMessageController.text =
+                          AppVersionRelease.defaultAlertMessage;
+                    }
                   });
                 },
               ),
